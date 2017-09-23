@@ -25,10 +25,10 @@ int main()
   cout << endl;
 
 
-/*  for (auto e : multiply_poly(A,B))
+  for (auto e : multiply_poly(A,B))
      cout << e << " ";
   cout << endl;  
-*/
+
 
     return 0;
 }
