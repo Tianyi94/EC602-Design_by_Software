@@ -1,23 +1,30 @@
 # Copyright 2017 Michael Graziano mjgrazia@bu.edu
 
 class Polynomial():
-    def __init__(self, coefs):
+    def __init__(self, coefs=[]):
 
         """ __init__: Creates the container for the polynomial based on the 
             provided  list coefs
         """
         
-        self.express = {} # Dictionary for storing
+        expons = range(len(coefs)-1,-1,-1)
+        self.express = dict(zip(expons, coefs)) # Dictionary for storing
 
-        for i in range(len(coefs) - 1, -1, -1): 
-            self.express.update({i : list(reversed(coefs))[i]})
+    def __missing__(self, key):
+
+        """ __missing__: Called when the key used for __getitem__ does not
+            exist. Will return 0 in this situation.
+        """
+
+        return 0
 
     def __getitem__(self, key):
 
         """ __getitem__: Allows for the exact exponent to be reference by
             key without having to access express directly.
         """
-        
+        if key not in self.express:
+            return self.__missing__(key)    
         return self.express[key];
 
     def __setitem__(self, key, value):
@@ -51,7 +58,7 @@ class Polynomial():
             variable.
         """
 
-        new_poly = Polynomial([])
+        new_poly = Polynomial()
         for key in self.keys():
             new_poly[key] = self[key]
         return new_poly
@@ -86,22 +93,26 @@ class Polynomial():
             expression Poly 1 + Poly 2 to produce a valid result.
         """
 
-        new_poly = Polynomial([])
-        master_keys = set(self.keys()).union(set(poly.keys()))
-
-        for key in master_keys:
-            if key in self.express and key in poly.express:
-                new_poly[key] = self[key] + poly[key]
-            elif key in self.express and key not in poly.express:
-                new_poly[key] = self[key]
-            else:
-                new_poly[key] = poly[key]
-            
-            if new_poly[key] == 0:
-                new_poly.pop(key)
-            else:
-                continue
-
+        new_poly = Polynomial()
+        new_poly.express = dict([(k, self[k]+poly[k]) \
+                                for k in {**self, **poly} \
+                                if self[k]+poly[k] != 0])
+#        new_poly = Polynomial()
+#        master_keys = set(self.keys()).union(set(poly.keys())) 
+#
+#        for key in master_keys:
+#            if key in self.express and key in poly.express:
+#                new_poly[key] = self[key] + poly[key]
+#            elif key in self.express and key not in poly.express:
+#                new_poly[key] = self[key]
+#            else:
+#                new_poly[key] = poly[key]
+#            
+#            if new_poly[key] == 0:
+#                new_poly.pop(key)
+#            else:
+#                continue
+#
         return new_poly
 
     def __sub__(self, poly):
