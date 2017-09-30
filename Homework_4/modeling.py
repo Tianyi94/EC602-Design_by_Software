@@ -9,9 +9,6 @@ class Polynomial():
         
         self.express = {} # Dictionary for storing
 
-#        if not coefs:
-#            self.express.update({0:0})
-#        else:
         for i in range(len(coefs) - 1, -1, -1): 
             self.express.update({i : list(reversed(coefs))[i]})
 
@@ -107,25 +104,6 @@ class Polynomial():
 
         return new_poly
 
-#        new_express = self.express.copy()
-#        new_express.update(poly.express)
-#
-#        for expon in new_express.keys():
-#            if expon in self.express and expon in poly.express:
-#                new_express[expon] = self.express[expon] + poly.express[expon]
-#            elif expon in self.express and expon not in poly.express:
-#                new_express[expon] = self.express[expon]
-#            else:
-#                pass
-#
-#        for expon in list(reversed(list(new_express.keys()))):
-#            if new_express[expon] == 0:
-#                new_express.pop(expon)
-#            else:
-#                break
-#
-#        return Polynomial(list(reversed(list(new_express.values()))))
-
     def __sub__(self, poly):
 
         """ __sub__: Updates the '-' symbol in order to allow for the
@@ -139,10 +117,6 @@ class Polynomial():
 
         return self.__add__(new_poly)
 
-#        return self.__add__(Polynomial([-x for x in list(reversed(
-#                            list(poly.express.values())
-#                           ))]))
-        
     def __mul__(self, poly):
         
         """__mul__: Updates the "*" symbol in order to allow for the 
@@ -172,6 +146,39 @@ class Polynomial():
 
         return final_poly
 
+    def __eq__(self, poly):
+        
+        """ __eq__: Method that will compare two exponents to verify if they
+            are equal or not
+        """
+
+        equal = False
+
+        for key1 in self.keys():
+            for key2 in poly.keys():
+                if key1 == key2 and self[key1] == poly[key2]:
+                    equal = True
+                    break
+                else:
+                    equal = False
+            if not equal:
+                break
+
+        return equal
+
+    def eval(self, value):
+        
+        """ eval: Method that will return the result of Polynomial based on
+            substituting the x statement with the passed value.
+        """
+
+        result = 0
+        
+        for key in self.keys():
+            result += self[key]*(value**key)
+        
+        return result
+
     def deriv(self):
 
         """deriv(): Method that will return the derivative of the Polynomial.
@@ -188,36 +195,41 @@ class Polynomial():
         return new_poly
                 
 def main():
+    pass
     # Polynomial Creation Practice
-    test = [Polynomial([]),
-            Polynomial([1]),
-            Polynomial([5, 6, 8]),
-            Polynomial([7, 9, 2, 4])
-           ]
-    adder = Polynomial([1, 2, 3])
-    diff = Polynomial([5, 3, 8])
-    multi = Polynomial([2, 3])
-
+#    test = [Polynomial([]),
+#            Polynomial([1]),
+#            Polynomial([5, 6, 8]),
+#            Polynomial([7, 9, 2, 4]),
+#            Polynomial([1.35, 2.42])
+#           ]
+#    adder = Polynomial([1, 2, 3])
+#    diff = Polynomial([5, 3, 8])
+#    multi = Polynomial([2, 3])
+#    compare = Polynomial([5, 6, 8])
+#
     # Polynomial "Pretty Print" Practice
-    for item in test:
-        print(item)
+#    for item in test:
+#        print(item)
+#        print(item.eval(3))
 #        print(adder)
 #        print(item + adder)
 #        print(diff)
 #        print(item - diff)
-        item[-2] = 10
+#        item[-2] = 10
 #        print(item.deriv())
-        print(item)
-        print(multi)
-        print(item * multi)
-        print(diff)
-        print(item - diff)
+#        print(item)
+#        print(multi)
+#        print(item * multi)
+#        print(diff)
+#        print(item - diff)
+#        print(compare)
+#        print(item == compare)
 #    print("Polynomial Adder = ", adder)
 #    adder_copy = adder.copy()
 #    adder_copy[1] = 0
 #    print("Polynomial Adder = ", adder_copy)
 #    print("Polynomial Adder = ", adder)
-
 
 if __name__=="__main__":
 	main()
