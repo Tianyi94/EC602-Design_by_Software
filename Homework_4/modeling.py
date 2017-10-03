@@ -97,22 +97,6 @@ class Polynomial():
         new_poly.express = dict([(k, self[k]+poly[k]) \
                                 for k in {**self, **poly} \
                                 if self[k]+poly[k] != 0])
-#        new_poly = Polynomial()
-#        master_keys = set(self.keys()).union(set(poly.keys())) 
-#
-#        for key in master_keys:
-#            if key in self.express and key in poly.express:
-#                new_poly[key] = self[key] + poly[key]
-#            elif key in self.express and key not in poly.express:
-#                new_poly[key] = self[key]
-#            else:
-#                new_poly[key] = poly[key]
-#            
-#            if new_poly[key] == 0:
-#                new_poly.pop(key)
-#            else:
-#                continue
-#
         return new_poly
 
     def __sub__(self, poly):
@@ -207,40 +191,6 @@ class Polynomial():
                 
 def main():
     pass
-    # Polynomial Creation Practice
-#    test = [Polynomial([]),
-#            Polynomial([1]),
-#            Polynomial([5, 6, 8]),
-#            Polynomial([7, 9, 2, 4]),
-#            Polynomial([1.35, 2.42])
-#           ]
-#    adder = Polynomial([1, 2, 3])
-#    diff = Polynomial([5, 3, 8])
-#    multi = Polynomial([2, 3])
-#    compare = Polynomial([5, 6, 8])
-#
-    # Polynomial "Pretty Print" Practice
-#    for item in test:
-#        print(item)
-#        print(item.eval(3))
-#        print(adder)
-#        print(item + adder)
-#        print(diff)
-#        print(item - diff)
-#        item[-2] = 10
-#        print(item.deriv())
-#        print(item)
-#        print(multi)
-#        print(item * multi)
-#        print(diff)
-#        print(item - diff)
-#        print(compare)
-#        print(item == compare)
-#    print("Polynomial Adder = ", adder)
-#    adder_copy = adder.copy()
-#    adder_copy[1] = 0
-#    print("Polynomial Adder = ", adder_copy)
-#    print("Polynomial Adder = ", adder)
 
 if __name__=="__main__":
 	main()
