@@ -24,7 +24,7 @@ def check_all_files():
 
     Programs = glob.glob('cf/collisionc*')
     for file_name in Programs:
-        if "hard" in file_name: continue
+        if "24_hard" in file_name: continue
 
         loader = unittest.loader.TestLoader()
         results = unittest.result.TestResult()
